@@ -42,7 +42,7 @@ module "any_name_you_like" {
 ```
 
 ### Create a brand new key in Lightsail Console
-If you create a brand new key in Lightsail Console:
+If you wanna create a brand new key in Lightsail Console:
 
 ```terraform
 module "any_name_you_like" {

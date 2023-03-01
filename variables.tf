@@ -27,19 +27,19 @@ variable "bundle_id" {
 
 variable "key_pair_name_in_console" {
   type        = string
-  description = "If already created a custom key in the Lightsail console (cannot use aws_key_pair at this time), give the name of your key pair name of current region. If this variable is assigned, don't use `public_key_file_at_local` or `do_not_create_key`."
+  description = "If already created a custom key in the Lightsail console (cannot use aws_key_pair at this time), give the name of your key pair name of current region. If this variable is assigned, don't use `public_key_file_at_local` or `create_key`."
   default     = null
 }
 
 variable "public_key_file_at_local" {
   type        = string
-  description = "If created a pair of keys in local, give the absolute path of public key. e.g. `~/.ssh/id_rsa.pub`. If this variable is assigned, don't use `key_pair_name_in_console` or `do_not_create_key`."
+  description = "If created a pair of keys in local, give the absolute path of public key. e.g. `~/.ssh/id_rsa.pub`. If this variable is assigned, don't use `key_pair_name_in_console` or `create_key`."
   default     = null
 }
 
-variable "do_not_create_key" {
+variable "create_key" {
   type        = bool
-  description = "If want to use the regional default key of Lightsail in Console, set this variable to `true`. If this variable is assigned, don't use `key_pair_name_in_console` or `public_key_file_at_local`"
+  description = "If do not want to use the regional default/custom key of Lightsail in Console, set this variable to `true`. If then you want to use an existing public key at local, assign its absolute path to `public_key_file_at_local`, or, a brand new key pair would be create."
   default     = false
 }
 

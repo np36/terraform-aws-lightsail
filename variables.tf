@@ -12,7 +12,7 @@ variable "name" {
 variable "availability_zone" {
   type        = string
   default     = null
-  description = "Which AZ this Lightsail instance locates? Default is the 1st AZ of current region. Check [this related page in Terraform doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#availability-zones) for more details about Lightsail AZs."
+  description = "Which AZ this Lightsail instance locates? Default is the 1st AZ of current region. Use this command to list AZs of a specific region: `region=\"ap-northeast-1\"; aws lightsail get-regions --region $region --include-availability-zones --query \"regions[?name=='$region'].{regionName: displayName, regionCode: name, ZAs:availabilityZones[?state=='available'].zoneName }\"`. Check [this related page in Terraform doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#availability-zones) for more details about Lightsail AZs."
 }
 
 variable "blueprint_id" {
@@ -27,20 +27,20 @@ variable "bundle_id" {
 
 variable "key_pair_name_in_console" {
   type        = string
-  description = "If already created a custom key in the Lightsail console (cannot use aws_key_pair at this time), give the name of your key pair name of current region."
+  description = "If already created a custom key in the Lightsail console (cannot use aws_key_pair at this time), give the name of your key pair name of current region. If this variable is assigned, don't use `public_key_file_at_local` or `do_not_create_key`."
   default     = null
 }
 
 variable "public_key_file_at_local" {
-    type = string
-    description = "If created a pair of keys in local, give the absolute path of public key. e.g. `~/.ssh/id_rsa.pub`"
-    default = null
+  type        = string
+  description = "If created a pair of keys in local, give the absolute path of public key. e.g. `~/.ssh/id_rsa.pub`. If this variable is assigned, don't use `key_pair_name_in_console` or `do_not_create_key`."
+  default     = null
 }
 
 variable "do_not_create_key" {
-  type = bool
-  description = "value"
-  default = false
+  type        = bool
+  description = "If want to use the regional default key of Lightsail in Console, set this variable to `true`. If this variable is assigned, don't use `key_pair_name_in_console` or `public_key_file_at_local`"
+  default     = false
 }
 
 
@@ -54,17 +54,17 @@ variable "tags" {
 variable "port_443_cidr_blocks" {
   description = "A mapping of cidr blocks that are allowed by port 443. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
   type        = map(string)
-  default = {}
+  default     = {}
 }
 
 variable "port_80_cidr_blocks" {
   description = "A mapping of cidr blocks that are allowed by port 80. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
   type        = map(string)
-  default = {}
+  default     = {}
 }
 
 variable "port_22_cidr_blocks" {
-  description = "A mapping of cidr blocks that are allowed by port 22. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
+  description = "A mapping of cidr blocks that are allowed by port 22. {<DESCRIPTION>: <CIDR_BLOCK>}. The <DESCRIPTION> is for your reference, would not appear anywhere in Console. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
   type        = map(string)
-  default = {}
+  default     = {}
 }

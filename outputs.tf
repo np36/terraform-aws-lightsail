@@ -34,41 +34,41 @@ output "user_data" {
 }
 
 output "staticip_arn" {
-  value = aws_lightsail_static_ip.main.0.*.arn
+  value = aws_lightsail_static_ip.main.*.arn
 }
 
 output "ip_address" {
-  value = aws_lightsail_static_ip.main.0.*.ip_address
+  value = aws_lightsail_static_ip.main.*.ip_address
 }
 
 output "staticip_support_code" {
-  value = aws_lightsail_static_ip.main.0.*.support_code
+  value = aws_lightsail_static_ip.main.*.support_code
 }
 
 output "key_id" {
-  value = aws_lightsail_key_pair.instance.*.id
+  value = aws_lightsail_key_pair.main.*.id
 }
 
 output "key_arn" {
-  value = aws_lightsail_key_pair.instance.*.arn
+  value = aws_lightsail_key_pair.main.*.arn
 }
 
 output "fingerprint" {
-  value = aws_lightsail_key_pair.instance.*.fingerprint
+  value = aws_lightsail_key_pair.main.*.fingerprint
 }
 
 output "public_key" {
-  value = aws_lightsail_key_pair.instance.*.public_key
+  value = aws_lightsail_key_pair.main.*.public_key
 }
 
 output "private_key" {
-  value = aws_lightsail_key_pair.instance.*.private_key
+  value = aws_lightsail_key_pair.main.*.private_key
 }
 
 output "encrypted_private_key" {
-  value = aws_lightsail_key_pair.instance.*.encrypted_private_key
+  value = aws_lightsail_key_pair.main.*.encrypted_private_key
 }
 
 output "encrypted_fingerprint" {
-  value = aws_lightsail_key_pair.instance.*.encrypted_fingerprint
+  value = aws_lightsail_key_pair.main.*.encrypted_fingerprint
 } 

@@ -11,7 +11,7 @@ variable "name" {
 
 variable "availability_zone" {
   type        = string
-  default     = data.aws_availability_zones.available.names[0]
+  default     = null
   description = "Which AZ this Lightsail instance locates? Default is the 1st AZ of current region. Check [this related page in Terraform doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#availability-zones) for more details about Lightsail AZs."
 }
 
@@ -27,7 +27,7 @@ variable "bundle_id" {
 
 variable "key_pair_name_in_console" {
   type        = string
-  description = "If already created a custom key in the Lightsail console (cannot use aws_key_pair at this time), give the name of your key pair in current region."
+  description = "If already created a custom key in the Lightsail console (cannot use aws_key_pair at this time), give the name of your key pair name of current region."
   default     = null
 }
 

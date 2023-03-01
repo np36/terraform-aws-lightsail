@@ -29,6 +29,28 @@ module "any_name_you_like" {
 }
 ```
 
+### Specific availability zone
+If you wanna locate Lightsail instance at a specific availability zone:
+
+```terraform
+module "any_name_you_like" {
+  ...
+  # configure optional variables here:
+  availability_zone = "us-east-1a"
+  ...
+}
+```
+Here is a snippet helps you find out AZs for Lightsail of a given region code:
+```bash
+# give a region code
+region="ap-northeast-1"
+
+aws lightsail get-regions \
+--region $region \
+--include-availability-zones \
+--query "regions[?name=='$region'].{regionName: displayName, regionCode: name, ZAs:availabilityZones[?state=='available'].zoneName }"
+```
+
 ### Use an existing key in Lightsail Console
 If you have created a key in Lightsail Console, and want to connect the instance with it:
 

@@ -3,7 +3,7 @@
 Create an AWS Lightsail instance with a static IP, firewall rules.
 
 ## Infrastructure Topology Diagram
-![The Infrastructure](https://github.com/np36/terraform-aws-lightsail/blob/main/_docs/np36_lightsail_aws.png?raw=true)
+![The Infrastructure](https://github.com/np36/terraform-aws-lightsail/blob/025a9fbf40672f1c98ae06534221ba0a7d177efa/_docs/np36_lightsail_aws.png?raw=true)
 - creates a Lightsail Instance with a specific bundle and blueprint.
 - creates a static IP associated with this instance.
 - creates firewall rules for port 22, 80, 443.

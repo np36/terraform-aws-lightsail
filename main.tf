@@ -1,7 +1,7 @@
 terraform {
   required_version = ">= 0.14.0"
   required_providers {
-    aws  = "~> 2.0"
+    aws = "~> 2.0"
   }
 }
 
@@ -20,8 +20,9 @@ resource "aws_lightsail_instance" "main" {
 
   blueprint_id = var.blueprint_id
 
-  bundle_id = var.bundle_id
-  key_pair_name     = aws_lightsail_key_pair.main.0.name 
+  bundle_id     = var.bundle_id
+  key_pair_name = var.create_key == true ? aws_lightsail_key_pair.main.0.name : var.key_pair_name_in_console != null ? var.key_pair_name_in_console : null
+
   tags = var.tags
 }
 
@@ -37,9 +38,9 @@ resource "aws_lightsail_static_ip_attachment" "main" {
 }
 
 resource "aws_lightsail_key_pair" "main" {
-  count = var.key_pair_name_in_console == null && var.do_not_create_key == false ? 1 : 0
-  name  = "${var.name}-lightsail-keypair"
-    public_key = var.public_key_file_at_local == null ? null : file(var.public_key_file_at_local)
+  count      = var.create_key == true ? 1 : 0
+  name       = "${var.name}-lightsail-keypair"
+  public_key = var.public_key_file_at_local == null ? null : file(var.public_key_file_at_local)
 }
 
 resource "aws_lightsail_instance_public_ports" "main" {

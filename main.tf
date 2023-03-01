@@ -13,12 +13,12 @@ resource "aws_lightsail_instance" "main" {
 
   name = var.name
 
-  availability_zone = var.availability_zone
+  availability_zone = var.availability_zone == null ? data.aws_availability_zones.available.names[0] : var.availability_zone
 
   blueprint_id = var.blueprint_id
 
   bundle_id = var.bundle_id
-  key_pair_name     = var.key_pair_name || null 
+  key_pair_name     = aws_lightsail_key_pair.main.0.name 
   tags = var.tags
 }
 
@@ -34,9 +34,9 @@ resource "aws_lightsail_static_ip_attachment" "main" {
 }
 
 resource "aws_lightsail_key_pair" "main" {
-  count = var.key_pair_name == null && var.do_not_create_key == false ? 1 : 0
+  count = var.key_pair_name_in_console == null && var.do_not_create_key == false ? 1 : 0
   name  = "${var.name}-lightsail-keypair"
-    public_key = var.public_key_file_at_local && file(var.public_key_file_at_local)
+    public_key = var.public_key_file_at_local == null ? null : file(var.public_key_file_at_local)
 }
 
 resource "aws_lightsail_instance_public_ports" "main" {

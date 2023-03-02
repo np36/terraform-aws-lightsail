@@ -44,28 +44,16 @@ resource "aws_lightsail_key_pair" "main" {
 }
 
 resource "aws_lightsail_instance_public_ports" "main" {
-  count         = var.create ? 1 : 0
+  count         = var.create == true ? var.fire_wall_rules == null ? 0 : 1 : 0
   instance_name = aws_lightsail_instance.main.0.name
 
-  port_info {
-    protocol  = "tcp"
-    from_port = 443
-    to_port   = 443
-    cidrs     = [for k, v in var.port_443_cidr_blocks : v]
+  dynamic "port_info" {
+    for_each = var.fire_wall_rules
+    content {
+      protocol  = "tcp"
+      from_port = port_info.value.port
+      to_port   = port_info.value.port
+      cidrs     = [for rule in port_info.value.rules : rule.cidr]
+    }
   }
-
-  port_info {
-    protocol  = "tcp"
-    from_port = 80
-    to_port   = 80
-    cidrs     = [for k, v in var.port_80_cidr_blocks : v]
-  }
-
-  port_info {
-    protocol  = "tcp"
-    from_port = 22
-    to_port   = 22
-    cidrs     = [for k, v in var.port_22_cidr_blocks : v]
-  }
-
 }

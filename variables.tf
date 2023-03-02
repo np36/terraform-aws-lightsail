@@ -43,6 +43,24 @@ variable "create_key" {
   default     = false
 }
 
+# variable "fire_wall_rules" {
+#   description = "CIDR blocks for ports"
+#   type        = map(string)
+#   default     = {}
+# }
+
+variable "fire_wall_rules" {
+  description = "Fire wall rules for ports"
+  type = list(object({
+    port = number
+    rules = list(object({
+      description = string
+      cidr        = string
+    }))
+  }))
+  default = null
+}
+
 
 
 variable "tags" {
@@ -51,20 +69,20 @@ variable "tags" {
   default     = {}
 }
 
-variable "port_443_cidr_blocks" {
-  description = "A mapping of cidr blocks that are allowed by port 443. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
-  type        = map(string)
-  default     = {}
-}
+# variable "port_443_cidr_blocks" {
+#   description = "A mapping of cidr blocks that are allowed by port 443. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
+#   type        = map(string)
+#   default     = {}
+# }
 
-variable "port_80_cidr_blocks" {
-  description = "A mapping of cidr blocks that are allowed by port 80. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
-  type        = map(string)
-  default     = {}
-}
+# variable "port_80_cidr_blocks" {
+#   description = "A mapping of cidr blocks that are allowed by port 80. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
+#   type        = map(string)
+#   default     = {}
+# }
 
-variable "port_22_cidr_blocks" {
-  description = "A mapping of cidr blocks that are allowed by port 22. {<DESCRIPTION>: <CIDR_BLOCK>}. The <DESCRIPTION> is for your reference, would not appear anywhere in Console. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
-  type        = map(string)
-  default     = {}
-}
+# variable "port_22_cidr_blocks" {
+#   description = "A mapping of cidr blocks that are allowed by port 22. {<DESCRIPTION>: <CIDR_BLOCK>}. The <DESCRIPTION> is for your reference, would not appear anywhere in Console. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
+#   type        = map(string)
+#   default     = {}
+# }

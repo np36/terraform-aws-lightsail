@@ -11,7 +11,7 @@ provider "aws" {
 # You must be sure this region supports Lightsail
 provider "aws" {
   alias  = "lightsail"
-  region = "ap-northeast-1"
+  region = "ca-central-1"
 }
 
 module "lightsail" {
@@ -40,21 +40,64 @@ module "lightsail" {
   # create_key = true
 
   # If you already have a pair of key at local, say they are `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`, and you wanna use `~/.ssh/id_rsa` to connect to the Lightsail instance you would create, you should give the absolute path of id_rsa.pub:
-  # create_key = true
+  # create_key               = true
   # public_key_file_at_local = "~/.ssh/id_rsa.pub"
 
-  port_22_cidr_blocks = {
-    "Open to the whold world" : "0.0.0.0/0"
-  }
-  port_443_cidr_blocks = {
-    "Open to the whold world" : "0.0.0.0/0"
-  }
-  port_80_cidr_blocks = {
-    "Open to the whold world" : "0.0.0.0/0"
-  }
-  tags = {
-    "stage"      = "dev"
-    "costcenter" = "1122"
-    "Name"       = "Putin_khuylo"
-  }
+  fire_wall_rules = [
+    {
+      port : 80,
+      rules : [
+        {
+          description : "admin-xmt35",
+          cidr : "35.79.23.128/32"
+        },
+        {
+          description : "self",
+          cidr : "3.97.26.156/32"
+        }
+
+      ]
+    },
+    {
+      port : 443,
+      rules : [
+        {
+          description : "admin-xmt35",
+          cidr : "35.79.23.128/32"
+        },
+        {
+          description : "self",
+          cidr : "3.97.26.156/32"
+        }
+
+      ]
+    },
+    {
+      port : 22,
+      rules : [
+        {
+          description : "admin-xmt35",
+          cidr : "35.79.23.128/32"
+        },
+        {
+          description : "self",
+          cidr : "3.97.26.156/32"
+        }
+
+      ]
+    },
+    {
+      port : 8080,
+      rules : [
+        {
+          description : "admin-xmt35",
+          cidr : "35.79.23.128/32"
+        },
+        {
+          description : "self",
+          cidr : "3.97.26.156/32"
+        }
+      ]
+    },
+  ]
 }

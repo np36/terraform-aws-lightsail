@@ -40,8 +40,8 @@ module "lightsail" {
   # create_key = true
 
   # If you already have a pair of key at local, say they are `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`, and you wanna use `~/.ssh/id_rsa` to connect to the Lightsail instance you would create, you should give the absolute path of id_rsa.pub:
-  # create_key               = true
-  # public_key_file_at_local = "~/.ssh/id_rsa.pub"
+  create_key               = true
+  public_key_file_at_local = "~/.ssh/id_rsa.pub"
 
   fire_wall_rules = [
     {

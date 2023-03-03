@@ -51,9 +51,9 @@ resource "aws_lightsail_instance_public_ports" "main" {
     for_each = var.fire_wall_rules
     content {
       protocol  = "tcp"
-      from_port = port_info.value.port
-      to_port   = port_info.value.port
-      cidrs     = [for rule in port_info.value.rules : rule.cidr]
+      from_port = port_info.key
+      to_port   = port_info.key
+      cidrs     = [for k, v in port_info.value : v]
     }
   }
 }

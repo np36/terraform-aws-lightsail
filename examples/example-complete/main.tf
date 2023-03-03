@@ -43,61 +43,23 @@ module "lightsail" {
   create_key               = true
   public_key_file_at_local = "~/.ssh/id_rsa.pub"
 
-  fire_wall_rules = [
-    {
-      port : 80,
-      rules : [
-        {
-          description : "admin-xmt35",
-          cidr : "35.79.23.128/32"
-        },
-        {
-          description : "self",
-          cidr : "3.97.26.156/32"
-        }
+  fire_wall_rules = {
+    80 : {
+      "whole world" : "0.0.0.0/0",
+    },
+    443 : {
+      "whole world" : "0.0.0.0/0",
+    },
+    22 : {
+      "admin" : "1.1.1.1/32",
+      "self" : "2.2.2.0/24",
+    }
+  }
 
-      ]
-    },
-    {
-      port : 443,
-      rules : [
-        {
-          description : "admin-xmt35",
-          cidr : "35.79.23.128/32"
-        },
-        {
-          description : "self",
-          cidr : "3.97.26.156/32"
-        }
+  tags = {
+    "stage"      = "dev"
+    "costcenter" = "1122"
+    "Name"       = "Putin_khuylo"
+  }
 
-      ]
-    },
-    {
-      port : 22,
-      rules : [
-        {
-          description : "admin-xmt35",
-          cidr : "35.79.23.128/32"
-        },
-        {
-          description : "self",
-          cidr : "3.97.26.156/32"
-        }
-
-      ]
-    },
-    {
-      port : 8080,
-      rules : [
-        {
-          description : "admin-xmt35",
-          cidr : "35.79.23.128/32"
-        },
-        {
-          description : "self",
-          cidr : "3.97.26.156/32"
-        }
-      ]
-    },
-  ]
 }

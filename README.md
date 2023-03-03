@@ -105,36 +105,19 @@ module "any_name_you_like" {
   ...
   # configure optional variables here:
 
-  # e.g. let 80, 443 open to the whole world, let 22 open to Admin's IP:
-  fire_wall_rules = [
-    {
-      port : 80,
-      rules : [
-        {
-          description : "Open to the whold world",
-          cidr : "0.0.0.0/0"
-        },
-      ]
+  # e.g. let 80, 443 open to the whole world, let 22 open to Admin's IP and others:
+  fire_wall_rules = {
+    80 : {
+      "whole world" : "0.0.0.0/0",
     },
-    {
-      port : 443,
-      rules : [
-        {
-          description : "Open to the whold world",
-          cidr : "0.0.0.0/0"
-        },
-      ]
+    443 : {
+      "whole world" : "0.0.0.0/0",
     },
-    {
-      port : 22,
-      rules : [
-        {
-          description : "admin",
-          cidr : "77.56.23.0/24"
-        },
-      ]
-    },
-  ]
+    22 : {
+      "admin" : "1.1.1.1/32",
+      "self" : "2.2.2.0/24",
+    }
+  }
 
   tags = {
     "stage"      = "dev"

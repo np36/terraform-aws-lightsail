@@ -45,16 +45,9 @@ variable "create_key" {
 
 variable "fire_wall_rules" {
   description = "Fire wall rules for ports"
-  type = list(object({
-    port = number
-    rules = list(object({
-      description = string
-      cidr        = string
-    }))
-  }))
-  default = null
+  type        = map(any)
+  default     = null
 }
-
 
 
 variable "tags" {

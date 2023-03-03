@@ -12,17 +12,17 @@ variable "name" {
 variable "availability_zone" {
   type        = string
   default     = null
-  description = "Which AZ this Lightsail instance locates? Default is the 1st AZ of current region. Use this command to list AZs of a specific region: `region=\"ap-northeast-1\"; aws lightsail get-regions --region $region --include-availability-zones --query \"regions[?name=='$region'].{regionName: displayName, regionCode: name, ZAs:availabilityZones[?state=='available'].zoneName }\"`. Check [this related page in Terraform doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#availability-zones) for more details about Lightsail AZs."
+  description = "Which AZ this Lightsail instance locates? Default is the 1st AZ of current region. Check https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#availability-zones for more info."
 }
 
 variable "blueprint_id" {
   type        = string
-  description = "Which blueprint does this Lightsail use? Tell its ID. Use this command to list all available blueprint IDs: `aws lightsail get-blueprints --query 'blueprints[*].[blueprintId,version,name,type]' --output text | sort -k1`"
+  description = "Which blueprint does this Lightsail use? Tell its ID."
 }
 
 variable "bundle_id" {
   type        = string
-  description = "Which bundle does this Lightsail use? Tell its ID. Use this command to list all available blueprint IDs: `aws lightsail get-bundles --query 'bundles[*].[bundleId]' --output text`. Check [this related page in Terraform doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#bundles) for more details about Bundles."
+  description = "Which bundle does this Lightsail use? Tell its ID. Check https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_instance#bundles for more details about Bundles."
 }
 
 variable "key_pair_name_in_console" {
@@ -43,24 +43,11 @@ variable "create_key" {
   default     = false
 }
 
-# variable "fire_wall_rules" {
-#   description = "CIDR blocks for ports"
-#   type        = map(string)
-#   default     = {}
-# }
-
 variable "fire_wall_rules" {
   description = "Fire wall rules for ports"
-  type = list(object({
-    port = number
-    rules = list(object({
-      description = string
-      cidr        = string
-    }))
-  }))
-  default = null
+  type        = map(any)
+  default     = null
 }
-
 
 
 variable "tags" {
@@ -68,21 +55,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-# variable "port_443_cidr_blocks" {
-#   description = "A mapping of cidr blocks that are allowed by port 443. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
-#   type        = map(string)
-#   default     = {}
-# }
-
-# variable "port_80_cidr_blocks" {
-#   description = "A mapping of cidr blocks that are allowed by port 80. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
-#   type        = map(string)
-#   default     = {}
-# }
-
-# variable "port_22_cidr_blocks" {
-#   description = "A mapping of cidr blocks that are allowed by port 22. {<DESCRIPTION>: <CIDR_BLOCK>}. The <DESCRIPTION> is for your reference, would not appear anywhere in Console. e.g. `{\"Open to the whold world\": \"0.0.0.0/0\"}`"
-#   type        = map(string)
-#   default     = {}
-# }
